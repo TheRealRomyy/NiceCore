@@ -5,4 +5,8 @@ main: fr.rome.nicecore.Main
 commands:
   itemgive:
     permission: nicecore.items.give
-    description: Vous donner un item
+    description: Give you an items
+  clearcooldowns:
+    permission: nicecore.items.cooldowns
+    description: Skip cooldown for items
+    aliases: ["cc"]

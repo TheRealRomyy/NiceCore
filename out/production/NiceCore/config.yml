@@ -1,0 +1,7 @@
+# Base of the plugin
+prefix: "[&bNice&6Core&r]"
+
+# Join & leave messages
+# {player} -> The name of the player who join
+joinMessage: "[§a+§r] §6{player}"
+leaveMessage: "[§c-§r] §6{player}"

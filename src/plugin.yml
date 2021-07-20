@@ -1,0 +1,8 @@
+name: NiceCore
+author: Rome
+version: 1.0
+main: fr.rome.nicecore.Main
+commands:
+  itemgive:
+    permission: nicecore.items.give
+    description: Vous donner un item

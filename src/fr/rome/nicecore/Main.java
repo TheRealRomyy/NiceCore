@@ -1,5 +1,6 @@
 package fr.rome.nicecore;
 
+import fr.rome.nicecore.commands.CooldownBypass;
 import fr.rome.nicecore.commands.ItemGive;
 import fr.rome.nicecore.items.ItemManager;
 import fr.rome.nicecore.listeners.ClicksEvents;
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin {
 
         // Setup commands
         getCommand("itemgive").setExecutor(new ItemGive(this));
+        getCommand("clearcooldowns").setExecutor(new CooldownBypass(this));
     };
 
     @Override

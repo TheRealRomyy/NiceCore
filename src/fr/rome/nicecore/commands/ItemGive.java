@@ -1,10 +1,7 @@
 package fr.rome.nicecore.commands;
 
 import fr.rome.nicecore.Main;
-import fr.rome.nicecore.items.ChunkFinder;
-import fr.rome.nicecore.items.Feather;
-import fr.rome.nicecore.items.FireballLauncher;
-import fr.rome.nicecore.items.InvisibilyClock;
+import fr.rome.nicecore.items.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,8 +52,13 @@ public class ItemGive implements CommandExecutor {
             feather.giveItem(player);
 
             return true;
+        } else if("detector".equals(args[0])) {
+            Detector detector = new Detector(main);
+            detector.giveItem(player);
+
+            return true;
         } else {
-            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather>");
+            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector>");
             return false;
         }
     };

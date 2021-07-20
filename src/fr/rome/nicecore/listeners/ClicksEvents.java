@@ -2,10 +2,13 @@ package fr.rome.nicecore.listeners;
 
 import fr.rome.nicecore.Main;
 import fr.rome.nicecore.items.ChunkFinder;
+import fr.rome.nicecore.items.Detector;
 import fr.rome.nicecore.items.Feather;
 import fr.rome.nicecore.items.FireballLauncher;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SmallFireball;
@@ -15,6 +18,8 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class ClicksEvents implements Listener {
 
@@ -33,6 +38,8 @@ public class ClicksEvents implements Listener {
         PlayerInventory inventory = player.getInventory();
         ItemStack item = player.getItemInHand();
         ItemStack coal = new ItemStack(Material.COAL, 1);
+
+        String prefix = main.getPrefix();
 
         if(item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aChunk Finder")) {
            item.setDurability((short) (item.getDurability() + 1));
@@ -111,6 +118,23 @@ public class ClicksEvents implements Listener {
                 player.sendMessage("§cTu es en cooldown. Il reste " + (30.0 - (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player))) + " secondes !");
                 e.setCancelled(true);
             };
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Player Detector")) {
+
+            main.getDetectorCooldowns().remove(player);
+            main.getDetectorCooldowns().put(player, main.getTotalSeconds());
+
+            for (Entity ent : player.getNearbyEntities(50,50,50)) {
+                if (ent instanceof Player) {
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 30, 0));
+                };
+            };
+
+            Detector detector = new Detector(main);
+            player.getInventory().remove(detector.buildItem());
+
+            e.setCancelled(true);
+
+            player.sendMessage(prefix + "§6Détection des joueurs dans les environs...");
         };
     };
 

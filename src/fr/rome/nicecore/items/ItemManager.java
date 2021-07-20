@@ -29,6 +29,9 @@ public class ItemManager {
         Feather feather = new Feather(main);
         feather.addCraft();
 
+        Detector detector = new Detector(main);
+        detector.addCraft();
+
         this.manageInvisibilityCloack();
     };
 

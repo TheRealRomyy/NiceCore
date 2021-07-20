@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
     public HashMap<Player, Double> fireballShooterCooldowns = new HashMap<Player, Double>();
     public HashMap<Player, Integer> doubleJumpUses = new HashMap<Player, Integer>();
     public HashMap<Player, Double> doubleJumpCooldowns = new HashMap<Player, Double>();
+    public HashMap<Player, Double> detectorCooldowns = new HashMap<Player, Double>();
 
     @Override
     public void onEnable() {
@@ -90,5 +91,9 @@ public class Main extends JavaPlugin {
 
     public void setTotalSeconds(Double totalSeconds) {
         this.totalSeconds = totalSeconds;
+    };
+
+    public HashMap<Player, Double> getDetectorCooldowns() {
+        return detectorCooldowns;
     };
 };

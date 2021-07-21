@@ -2,10 +2,12 @@ package fr.rome.nicecore.items;
 
 import fr.rome.nicecore.Main;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 
@@ -20,6 +22,7 @@ public class OtherStuff {
     public void manage() {
 
         this.gapple();
+        this.goldenHead();
         this.unbreakableSword();
         this.emeraldBowCraft();
         this.emeraldSword();
@@ -36,6 +39,30 @@ public class OtherStuff {
         gappleRecipe.setIngredient('B', Material.GOLD_BLOCK);
 
         main.getServer().addRecipe(gappleRecipe);
+    };
+
+    public ItemStack buildGoldenHead() {
+        ItemStack goldenHead = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+        SkullMeta goldenHeadM = (SkullMeta) goldenHead.getItemMeta();
+        goldenHeadM.setOwner("Imperiums_");
+        goldenHeadM.setDisplayName("§eGolden Head");
+        goldenHeadM.setLore(Arrays.asList("§bUne golden head", "§6Made by: Rome"));
+        goldenHead.setItemMeta(goldenHeadM);
+
+        return goldenHead;
+    };
+
+    public void goldenHead() {
+        // Add gapple
+        ItemStack goldenHead = this.buildGoldenHead();
+        ShapedRecipe goldenHeadRecipe = new ShapedRecipe(goldenHead);
+        goldenHeadRecipe.shape("IBI", "BGB", "IBI");
+
+        goldenHeadRecipe.setIngredient('I', Material.GOLD_INGOT);
+        goldenHeadRecipe.setIngredient('B', Material.GOLD_BLOCK);
+        goldenHeadRecipe.setIngredient('G', Material.GOLDEN_APPLE);
+
+        main.getServer().addRecipe(goldenHeadRecipe);
     };
 
     public void unbreakableSword() {
@@ -132,7 +159,7 @@ public class OtherStuff {
         emeraldPickaxeM.addEnchant(Enchantment.DIG_SPEED, 5, true);
         emeraldPickaxeM.addEnchant(Enchantment.DURABILITY, 3, true);
         emeraldPickaxeM.addEnchant(Enchantment.MENDING, 1, true);
-        emeraldPickaxeM.addEnchant(Enchantment.LUCK, 3, true);
+        emeraldPickaxeM.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 3, true);
         emeraldPickaxe.setItemMeta(emeraldPickaxeM);
 
         return emeraldPickaxe;

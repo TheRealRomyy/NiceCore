@@ -1,10 +1,7 @@
 package fr.rome.nicecore.listeners;
 
 import fr.rome.nicecore.Main;
-import fr.rome.nicecore.items.ChunkFinder;
-import fr.rome.nicecore.items.Detector;
-import fr.rome.nicecore.items.Feather;
-import fr.rome.nicecore.items.FireballLauncher;
+import fr.rome.nicecore.items.*;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -41,10 +38,13 @@ public class ClicksEvents implements Listener {
 
         String prefix = main.getPrefix();
 
+        if(item == null) return;
+
         if(item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aChunk Finder")) {
            item.setDurability((short) (item.getDurability() + 1));
             if(item.getDurability() >= 64) {
                 player.setItemInHand(null);
+                player.updateInventory();
                 return;
             };
 
@@ -78,6 +78,7 @@ public class ClicksEvents implements Listener {
                         FireballLauncher fireballLauncher = new FireballLauncher(main);
                         player.getInventory().remove(fireballLauncher.buildItem());
                         main.getFireballShooterCooldowns().remove(player);
+                        player.updateInventory();
 
                         player.sendMessage("§cTon lanceur de fireball s'est cassé !");
 
@@ -132,10 +133,22 @@ public class ClicksEvents implements Listener {
 
             Detector detector = new Detector(main);
             player.getInventory().remove(detector.buildItem());
+            player.updateInventory();
 
             e.setCancelled(true);
 
             player.sendMessage(prefix + "§6Détection des joueurs dans les environs...");
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§eGolden Head")) {
+
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30*20, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 5*40, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 120*20, 0));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 30*20, 0));
+
+            player.setItemInHand(null);
+
+            e.setCancelled(true);
+            player.sendMessage(prefix + "§aGolden head consommee avec succes..");
         };
     };
 

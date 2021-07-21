@@ -32,6 +32,9 @@ public class ItemManager {
         Detector detector = new Detector(main);
         detector.addCraft();
 
+        Bomb bomb = new Bomb(main);
+        bomb.addCraft();
+
         this.manageInvisibilityCloack();
     };
 
@@ -41,12 +44,22 @@ public class ItemManager {
             public void run() {
                 try {
                     main.setTotalSeconds(main.getTotalSeconds()+1.0);
-                    if(main.getInvisiblePlayers().size() != 0) main.getInvisiblePlayers().forEach(player -> {
+                    if(!main.getChestToExplose().isEmpty()) main.getChestToExplose().forEach((chest, aDouble) -> {
+                        if(main.getTotalSeconds() >= aDouble) {
+                            chest.getWorld().createExplosion(chest.getLocation(), (float) 4.0);
+                            main.getChestToExplose().remove(chest);
+                        };
+                    });
+                    if(!main.getInvisiblePlayers().isEmpty()) main.getInvisiblePlayers().forEach(player -> {
                         if (player.getInventory().getChestplate() == null || !player.getInventory().getChestplate().hasItemMeta() || (player.getInventory().getChestplate().hasItemMeta() && !player.getInventory().getChestplate().getItemMeta().getDisplayName().equals("§6Invisibility Cloack"))) {
                             main.getInvisiblePlayers().remove(player);
                             for (Player pl : Bukkit.getOnlinePlayers()) {
                                 pl.showPlayer(player);
                             };
+
+                            String joinMessage = main.getConfig().getString("joinMessage").replace("&", "§").replace("{player}", player.getDisplayName());
+
+                            Bukkit.broadcastMessage(joinMessage);
                         } else if(player.getInventory().getChestplate() != null && player.getInventory().getChestplate().hasItemMeta() && player.getInventory().getChestplate().getItemMeta().getDisplayName().equals("§6Invisibility Cloack")) {
                             // If player wear cloack, remove 1 to durability
                             player.getInventory().getChestplate().setDurability((short) (player.getInventory().getChestplate().getDurability() + 1));

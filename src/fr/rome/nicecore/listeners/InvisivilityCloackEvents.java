@@ -21,18 +21,23 @@ public class InvisivilityCloackEvents implements Listener {
     public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
 
-        if(player.getInventory().getChestplate() != null && player.getInventory().getChestplate().hasItemMeta() && player.getInventory().getChestplate().getItemMeta().getDisplayName().equals("§6Invisibility Cloack")) {
+        if(!main.getInvisiblePlayers().contains(player) && (player.getInventory().getChestplate() != null && player.getInventory().getChestplate().hasItemMeta() && player.getInventory().getChestplate().getItemMeta().getDisplayName().equals("§6Invisibility Cloack"))) {
 
-            if(!main.getInvisiblePlayers().contains(player)) main.getInvisiblePlayers().add(player);
+            main.getInvisiblePlayers().add(player);
 
             for(Player pl : Bukkit.getOnlinePlayers()){
                 pl.hidePlayer(player);
             };
+
+            String leaveMessage = main.getConfig().getString("leaveMessage").replace("&", "§").replace("{player}", player.getDisplayName());
+
+            Bukkit.broadcastMessage(leaveMessage);
         };
     };
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        e.setJoinMessage("");
         Player player = e.getPlayer();
 
         main.getInvisiblePlayers().forEach(player::hidePlayer);
@@ -40,6 +45,7 @@ public class InvisivilityCloackEvents implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
+        e.setQuitMessage("");
         Player player = e.getPlayer();
 
         if(main.getInvisiblePlayers().contains(player)) {

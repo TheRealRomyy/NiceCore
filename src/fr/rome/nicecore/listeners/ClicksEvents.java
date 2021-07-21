@@ -95,7 +95,7 @@ public class ClicksEvents implements Listener {
                 main.getDoubleJumpCooldowns().remove(player);
                 main.getDoubleJumpCooldowns().put(player, main.getTotalSeconds());
 
-               player.setVelocity(player.getLocation().getDirection().multiply(1.5).setY(1));
+               player.setVelocity(player.getLocation().getDirection().multiply(30).setY(1));
 
                 if(!main.getDoubleJumpUses().containsKey(player)) main.getDoubleJumpUses().put(player, 30);
 
@@ -125,7 +125,8 @@ public class ClicksEvents implements Listener {
 
             for (Entity ent : player.getNearbyEntities(50,50,50)) {
                 if (ent instanceof Player) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 30, 0));
+                    Player entP = (Player) ent;
+                    entP.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*30, 0));
                 };
             };
 

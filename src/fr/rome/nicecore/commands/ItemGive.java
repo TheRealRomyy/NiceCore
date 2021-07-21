@@ -57,8 +57,13 @@ public class ItemGive implements CommandExecutor {
             detector.giveItem(player);
 
             return true;
+        } else if("bomb".equals(args[0])) {
+            Bomb bomb = new Bomb(main);
+            bomb.giveItem(player);
+
+            return true;
         } else {
-            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector>");
+            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector/bomb>");
             return false;
         }
     };

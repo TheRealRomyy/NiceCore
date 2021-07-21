@@ -3,11 +3,9 @@ package fr.rome.nicecore;
 import fr.rome.nicecore.commands.CooldownBypass;
 import fr.rome.nicecore.commands.ItemGive;
 import fr.rome.nicecore.items.ItemManager;
-import fr.rome.nicecore.listeners.ClicksEvents;
-import fr.rome.nicecore.listeners.EmeraldArmorEvents;
-import fr.rome.nicecore.listeners.InvisivilityCloackEvents;
-import fr.rome.nicecore.listeners.PlayerManagement;
+import fr.rome.nicecore.listeners.*;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +26,7 @@ public class Main extends JavaPlugin {
     public HashMap<Player, Integer> doubleJumpUses = new HashMap<Player, Integer>();
     public HashMap<Player, Double> doubleJumpCooldowns = new HashMap<Player, Double>();
     public HashMap<Player, Double> detectorCooldowns = new HashMap<Player, Double>();
+    public HashMap<Chest, Double> chestToExplose = new HashMap<Chest, Double>();
 
     @Override
     public void onEnable() {
@@ -46,6 +45,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new EmeraldArmorEvents(this), this);
         pm.registerEvents(new InvisivilityCloackEvents(this), this);
         pm.registerEvents(new PlayerManagement(this), this);
+        pm.registerEvents(new BombEvents(this), this);
 
         // Setup commands
         getCommand("itemgive").setExecutor(new ItemGive(this));
@@ -95,5 +95,9 @@ public class Main extends JavaPlugin {
 
     public HashMap<Player, Double> getDetectorCooldowns() {
         return detectorCooldowns;
+    };
+
+    public HashMap<Chest, Double> getChestToExplose() {
+        return chestToExplose;
     };
 };

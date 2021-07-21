@@ -45,6 +45,9 @@ public class ItemManager {
         OtherStuff otherStuff = new OtherStuff(main);
         otherStuff.manage();
 
+        TNTObsidian tntObsidian = new TNTObsidian(main);
+        tntObsidian.addCraft();
+
         this.manageInvisibilityCloack();
     };
 

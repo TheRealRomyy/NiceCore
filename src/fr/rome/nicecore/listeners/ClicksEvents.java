@@ -96,7 +96,7 @@ public class ClicksEvents implements Listener {
                 main.getDoubleJumpCooldowns().remove(player);
                 main.getDoubleJumpCooldowns().put(player, main.getTotalSeconds());
 
-               player.setVelocity(player.getLocation().getDirection().multiply(30).setY(1));
+               player.setVelocity(player.getLocation().getDirection().multiply(3).setY(1));
 
                 if(!main.getDoubleJumpUses().containsKey(player)) main.getDoubleJumpUses().put(player, 30);
 

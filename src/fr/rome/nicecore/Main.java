@@ -5,6 +5,7 @@ import fr.rome.nicecore.commands.ItemGive;
 import fr.rome.nicecore.items.ItemManager;
 import fr.rome.nicecore.listeners.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -21,6 +22,7 @@ public class Main extends JavaPlugin {
     public ArrayList<Player> invisiblePlayers = new ArrayList<Player>();
     public ArrayList<Player> shootersPlayers = new ArrayList<Player>();
     public ArrayList<Player> jetpackPlayers = new ArrayList<Player>();
+    public ArrayList<Location> tntobsidian = new ArrayList<Location>();
 
     public HashMap<Player, Integer> fireballShooterUses = new HashMap<Player, Integer>();
     public HashMap<Player, Double> fireballShooterCooldowns = new HashMap<Player, Double>();
@@ -46,17 +48,12 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new EmeraldArmorEvents(this), this);
         pm.registerEvents(new InvisivilityCloackEvents(this), this);
         pm.registerEvents(new PlayerManagement(this), this);
-        pm.registerEvents(new BombEvents(this), this);
+        pm.registerEvents(new ExplosionEvents(this), this);
 
         // Setup commands
         getCommand("itemgive").setExecutor(new ItemGive(this));
         getCommand("clearcooldowns").setExecutor(new CooldownBypass(this));
     };
-
-    @Override
-    public void onDisable() {
-        System.out.println("[NiceCore] Shutdown....");
-    }
 
     public String getPrefix() {
         return prefix;
@@ -104,5 +101,9 @@ public class Main extends JavaPlugin {
 
     public ArrayList<Player> getJetpackPlayers() {
         return jetpackPlayers;
+    };
+
+    public ArrayList<Location> getTntobsidian() {
+        return tntobsidian;
     };
 };

@@ -32,7 +32,7 @@ public class TNTObsidian {
 
     public ItemStack buildItem() {
 
-        ItemStack TNTObsidian = new ItemStack(Material.CHEST, 1);
+        ItemStack TNTObsidian = new ItemStack(Material.OBSIDIAN, 1);
         ItemMeta TNTObsidianM = TNTObsidian.getItemMeta();
         TNTObsidianM.setDisplayName("§cObsidian TNT");
         TNTObsidianM.setLore(Arrays.asList("§bUne obsidienne qui se transforme en TNT", "§6Made by: Rome"));

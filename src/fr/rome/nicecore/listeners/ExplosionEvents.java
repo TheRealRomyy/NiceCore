@@ -1,8 +1,6 @@
 package fr.rome.nicecore.listeners;
 
 import fr.rome.nicecore.Main;
-import fr.rome.nicecore.items.Detector;
-import fr.rome.nicecore.items.TNTObsidian;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -24,18 +22,17 @@ public class ExplosionEvents implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         Block block = e.getBlock();
+        Player player = e.getPlayer();
 
         if(block.getType().equals(Material.CHEST)) {
             Chest chest = (Chest) block.getState();
 
-          if(chest.getCustomName() != null && chest.getCustomName().equals("§cBomb")) {
-            main.getChestToExplose().put(chest, main.getTotalSeconds()+10);
-          } else if(chest.getCustomName() != null && chest.getCustomName().equals("§cObsidian TNT")) {
+          if(chest.getCustomName() != null && chest.getCustomName().equals("§cBomb")) main.getChestToExplose().put(chest, main.getTotalSeconds()+10);
 
-              block.setType(Material.OBSIDIAN);
-
-              main.getTntobsidian().add(block.getLocation());
-          };
+        } else if(block.getType().equals(Material.OBSIDIAN)) {
+            if(player.getItemInHand() != null && player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().hasDisplayName() && player.getItemInHand().getItemMeta().getDisplayName().equals("§cObsidian TNT")) {
+                main.getTntobsidian().add(block.getLocation());
+            };
         };
     };
 

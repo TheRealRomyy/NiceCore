@@ -2,7 +2,10 @@ package fr.rome.nicecore.items;
 
 import fr.rome.nicecore.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ItemManager {
@@ -34,6 +37,16 @@ public class ItemManager {
 
         Bomb bomb = new Bomb(main);
         bomb.addCraft();
+
+        // Add gapple
+        ItemStack gapple = new ItemStack(Material.GOLDEN_APPLE, 1, (byte) 1);
+        ShapedRecipe gappleRecipe = new ShapedRecipe(gapple);
+        gappleRecipe.shape("BBB", "BGB", "BBB");
+
+        gappleRecipe.setIngredient('G', Material.GOLDEN_APPLE);
+        gappleRecipe.setIngredient('B', Material.GOLD_BLOCK);
+
+        main.getServer().addRecipe(gappleRecipe);
 
         this.manageInvisibilityCloack();
     };

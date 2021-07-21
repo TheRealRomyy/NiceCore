@@ -38,15 +38,8 @@ public class ItemManager {
         Bomb bomb = new Bomb(main);
         bomb.addCraft();
 
-        // Add gapple
-        ItemStack gapple = new ItemStack(Material.GOLDEN_APPLE, 1, (byte) 1);
-        ShapedRecipe gappleRecipe = new ShapedRecipe(gapple);
-        gappleRecipe.shape("BBB", "BGB", "BBB");
-
-        gappleRecipe.setIngredient('G', Material.GOLDEN_APPLE);
-        gappleRecipe.setIngredient('B', Material.GOLD_BLOCK);
-
-        main.getServer().addRecipe(gappleRecipe);
+        OtherStuff otherStuff = new OtherStuff(main);
+        otherStuff.manage();
 
         this.manageInvisibilityCloack();
     };

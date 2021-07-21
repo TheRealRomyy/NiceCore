@@ -20,6 +20,7 @@ public class Main extends JavaPlugin {
 
     public ArrayList<Player> invisiblePlayers = new ArrayList<Player>();
     public ArrayList<Player> shootersPlayers = new ArrayList<Player>();
+    public ArrayList<Player> jetpackPlayers = new ArrayList<Player>();
 
     public HashMap<Player, Integer> fireballShooterUses = new HashMap<Player, Integer>();
     public HashMap<Player, Double> fireballShooterCooldowns = new HashMap<Player, Double>();
@@ -99,5 +100,9 @@ public class Main extends JavaPlugin {
 
     public HashMap<Chest, Double> getChestToExplose() {
         return chestToExplose;
+    };
+
+    public ArrayList<Player> getJetpackPlayers() {
+        return jetpackPlayers;
     };
 };

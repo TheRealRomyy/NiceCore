@@ -38,6 +38,10 @@ public class ItemManager {
         Bomb bomb = new Bomb(main);
         bomb.addCraft();
 
+        Jetpack jetpack = new Jetpack(main);
+        jetpack.addCraft();
+        jetpack.useItem();
+
         OtherStuff otherStuff = new OtherStuff(main);
         otherStuff.manage();
 

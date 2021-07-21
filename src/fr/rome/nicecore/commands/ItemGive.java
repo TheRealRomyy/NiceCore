@@ -62,6 +62,11 @@ public class ItemGive implements CommandExecutor {
             bomb.giveItem(player);
 
             return true;
+        } else if("jetpack".equals(args[0])) {
+            Jetpack jetpack = new Jetpack(main);
+            jetpack.giveItem(player);
+
+            return true;
         } else {
             player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector/bomb>");
             return false;

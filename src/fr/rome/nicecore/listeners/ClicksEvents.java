@@ -40,7 +40,7 @@ public class ClicksEvents implements Listener {
 
         if(item == null) return;
 
-        if(item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aChunk Finder")) {
+        if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aChunk Finder")) {
            item.setDurability((short) (item.getDurability() + 1));
             if(item.getDurability() >= 64) {
                 player.setItemInHand(null);
@@ -50,7 +50,7 @@ public class ClicksEvents implements Listener {
 
             ChunkFinder chunkFinder = new ChunkFinder(main);
             chunkFinder.useItem(player);
-        } else if(item.hasItemMeta() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§cFireball Launcher")) {
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§cFireball Launcher")) {
             if (inventory.containsAtLeast(coal, 1)) {
 
                 if (!main.getFireballShooterCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getFireballShooterCooldowns().get(player) >= 20.0)) {
@@ -90,7 +90,7 @@ public class ClicksEvents implements Listener {
             } else {
               player.sendMessage("§cTu n'a pas de charbon dans votre inventaire !");
             };
-        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§eFeather Jump")) {
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§eFeather Jump")) {
 
             if (!main.getDoubleJumpCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player) >= 30.0)) {
                 main.getDoubleJumpCooldowns().remove(player);
@@ -119,7 +119,7 @@ public class ClicksEvents implements Listener {
                 player.sendMessage("§cTu es en cooldown. Il reste " + (30.0 - (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player))) + " secondes !");
                 e.setCancelled(true);
             };
-        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Player Detector")) {
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Player Detector")) {
 
             main.getDetectorCooldowns().remove(player);
             main.getDetectorCooldowns().put(player, main.getTotalSeconds());
@@ -149,6 +149,19 @@ public class ClicksEvents implements Listener {
 
             e.setCancelled(true);
             player.sendMessage(prefix + "§aGolden head consommee avec succes..");
+        } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Fumigene")) {
+
+            main.getSmokePlayers().add(player);
+
+            player.getLocation().getDirection().normalize().multiply(1);
+            player.launchProjectile(SmallFireball.class);
+            player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 1, 1);
+
+            Smoke smoke = new Smoke(main);
+            player.getInventory().remove(smoke.buildItem());
+            player.updateInventory();
+
+            e.setCancelled(true);
         };
     };
 
@@ -161,6 +174,15 @@ public class ClicksEvents implements Listener {
                 if(main.getShootersPlayers().contains(shooter)) {
                     e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), (float) 4.0);
                     main.getShootersPlayers().remove(shooter);
+                } else if(main.getSmokePlayers().contains(shooter)) {
+                    for (Entity ent : e.getHitBlock().getWorld().getNearbyEntities(e.getHitBlock().getLocation(), 10,10,10)) {
+                        if (ent instanceof Player) {
+                            Player entP = (Player) ent;
+                            entP.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*30, 0));
+                        };
+                    };
+
+                    main.getSmokePlayers().remove(shooter);
                 };
             };
         };

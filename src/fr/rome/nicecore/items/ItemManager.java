@@ -45,6 +45,9 @@ public class ItemManager {
         TNTObsidian tntObsidian = new TNTObsidian(main);
         tntObsidian.addCraft();
 
+        Smoke smoke = new Smoke(main);
+        smoke.addCraft();
+
         this.manageInvisibilityCloack();
     };
 

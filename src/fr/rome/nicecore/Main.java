@@ -46,7 +46,7 @@ public class Main extends JavaPlugin {
         // Setup Plugin manager (for events)
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new ClicksEvents(this), this);
-        pm.registerEvents(new EmeraldArmorEvents(this), this);
+        pm.registerEvents(new EmeraldStuffEvents(this), this);
         pm.registerEvents(new InvisivilityCloackEvents(this), this);
         pm.registerEvents(new PlayerManagement(this), this);
         pm.registerEvents(new ExplosionEvents(this), this);

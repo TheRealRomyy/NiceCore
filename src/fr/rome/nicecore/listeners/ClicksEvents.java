@@ -175,6 +175,7 @@ public class ClicksEvents implements Listener {
                     e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), (float) 4.0);
                     main.getShootersPlayers().remove(shooter);
                 } else if(main.getSmokePlayers().contains(shooter)) {
+
                     for (Entity ent : e.getHitBlock().getWorld().getNearbyEntities(e.getHitBlock().getLocation(), 10,10,10)) {
                         if (ent instanceof Player) {
                             Player entP = (Player) ent;

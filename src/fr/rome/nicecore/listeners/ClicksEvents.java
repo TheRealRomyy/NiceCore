@@ -145,7 +145,15 @@ public class ClicksEvents implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 120*20, 0));
             player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 30*20, 0));
 
-            player.setItemInHand(null);
+            for (ItemStack i : player.getInventory().getContents()) {
+                if(i != null && i.hasItemMeta() && i.getItemMeta().hasDisplayName() && i.getItemMeta().getDisplayName().equals("§eGolden Head")) {
+                    if(i.getAmount() == 1) {
+                        player.getInventory().remove(i);
+                    } else {
+                        i.setAmount(i.getAmount() - 1);
+                    };
+                };
+            };
 
             e.setCancelled(true);
             player.sendMessage(prefix + "§aGolden head consommee avec succes..");
@@ -157,9 +165,15 @@ public class ClicksEvents implements Listener {
             player.launchProjectile(SmallFireball.class);
             player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 1, 1);
 
-            Smoke smoke = new Smoke(main);
-            player.getInventory().remove(smoke.buildItem());
-            player.updateInventory();
+            for (ItemStack i : player.getInventory().getContents()) {
+                if(i != null && i.hasItemMeta() && i.getItemMeta().hasDisplayName() && i.getItemMeta().getDisplayName().equals("§6Fumigene") && i.getType().equals(Material.STICK)) {
+                    if(i.getAmount() == 1) {
+                        player.getInventory().remove(i);
+                    } else {
+                        i.setAmount(i.getAmount() - 1);
+                    };
+                };
+            };
 
             e.setCancelled(true);
         };
@@ -176,14 +190,16 @@ public class ClicksEvents implements Listener {
                     main.getShootersPlayers().remove(shooter);
                 } else if(main.getSmokePlayers().contains(shooter)) {
 
+                    main.getSmokePlayers().remove(shooter);
+
+                    if(e.getHitBlock() == null || e.getHitBlock().getWorld().getNearbyEntities(e.getHitBlock().getLocation(), 10,10,10) == null) return;
+
                     for (Entity ent : e.getHitBlock().getWorld().getNearbyEntities(e.getHitBlock().getLocation(), 10,10,10)) {
                         if (ent instanceof Player) {
                             Player entP = (Player) ent;
                             entP.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*30, 0));
                         };
                     };
-
-                    main.getSmokePlayers().remove(shooter);
                 };
             };
         };

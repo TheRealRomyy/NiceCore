@@ -24,6 +24,7 @@ public class Main extends JavaPlugin {
     public ArrayList<Player> jetpackPlayers = new ArrayList<Player>();
     public ArrayList<Location> tntobsidian = new ArrayList<Location>();
     public ArrayList<Player> smokePlayers = new ArrayList<Player>();
+    public ArrayList<Player> singModePlayers = new ArrayList<Player>();
 
     public HashMap<Player, Integer> fireballShooterUses = new HashMap<Player, Integer>();
     public HashMap<Player, Double> fireballShooterCooldowns = new HashMap<Player, Double>();
@@ -110,5 +111,9 @@ public class Main extends JavaPlugin {
 
     public ArrayList<Player> getSmokePlayers() {
         return smokePlayers;
+    };
+
+    public ArrayList<Player> getSingModePlayers() {
+        return singModePlayers;
     };
 };

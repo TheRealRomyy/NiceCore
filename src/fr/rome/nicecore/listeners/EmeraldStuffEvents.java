@@ -4,12 +4,16 @@ import fr.rome.nicecore.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -57,6 +61,8 @@ public class EmeraldStuffEvents implements Listener {
 
         if(itemInHand != null & itemInHand.hasItemMeta() && itemInHand.getItemMeta().hasDisplayName() && itemInHand.getItemMeta().getDisplayName().equals("§aEmerald Pickaxe")) {
 
+            if(main.getSingModePlayers().contains(player)) return;
+
             ArrayList<Location> locs = new ArrayList<Location>();
 
             Double x = location.getX();
@@ -79,6 +85,36 @@ public class EmeraldStuffEvents implements Listener {
 
                 block1.breakNaturally(itemInHand);
             });
+        };
+    };
+
+    @EventHandler
+    public void onPlayerUseItem(PlayerInteractEvent e) {
+
+        if(e.getItem() == null) return;
+
+        Player player = e.getPlayer();
+        PlayerInventory inventory = player.getInventory();
+        ItemStack item = player.getItemInHand();
+
+        String prefix = main.getPrefix();
+
+        if(item == null) return;
+
+        if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aEmerald Pickaxe")) {
+
+            if(e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+
+                if(main.getSingModePlayers().contains(player)) {
+                    main.getSingModePlayers().remove(player);
+
+                    player.sendMessage(prefix + "§avous etes maintenant en mode creusage 3x3x1");
+                } else {
+                    main.getSingModePlayers().add(player);
+
+                    player.sendMessage(prefix + "§avous etes maintenant en mode creusage single");
+                };
+            };
         };
     };
 };

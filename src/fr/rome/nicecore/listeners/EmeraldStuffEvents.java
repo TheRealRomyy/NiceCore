@@ -69,6 +69,8 @@ public class EmeraldStuffEvents implements Listener {
             Double y = location.getY();
             Double z = location.getZ();
 
+            //TODO Modifier style pickaxe 3x3x1
+
             locs.add(new Location(location.getWorld(), x, y+1, z));
             locs.add(new Location(location.getWorld(), x, y-1, z));
             locs.add(new Location(location.getWorld(), x+1, y, z));

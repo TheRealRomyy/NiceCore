@@ -4,6 +4,7 @@ import fr.rome.nicecore.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -62,30 +63,13 @@ public class EmeraldStuffEvents implements Listener {
 
             if(main.getSingModePlayers().contains(player)) return;
 
-            ArrayList<Location> locs = new ArrayList<Location>();
-
-            Double x = location.getX();
-            Double y = location.getY();
-            Double z = location.getZ();
-
-            //TODO Modifier style pickaxe 3x3x1
-
-            locs.add(new Location(location.getWorld(), x, y+1, z));
-            locs.add(new Location(location.getWorld(), x, y-1, z));
-            locs.add(new Location(location.getWorld(), x+1, y, z));
-            locs.add(new Location(location.getWorld(), x-1, y, z));
-            locs.add(new Location(location.getWorld(), x+1, y+1, z));
-            locs.add(new Location(location.getWorld(), x-1, y+1, z));
-            locs.add(new Location(location.getWorld(), x+1, y-1, z));
-            locs.add(new Location(location.getWorld(), x-1, y-1, z));
-
-            locs.forEach(location1 -> {
-                Block block1 = location1.getBlock();
-
-                if(block1.getType().equals(Material.AIR) || block1.getType().equals(Material.BEDROCK)) return;
-
-                block1.breakNaturally(itemInHand);
-            });
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    for (int z = -1 ; z <= 1; z++) {
+                        location.getWorld().getBlockAt(new Location(location.getWorld(), location.getX() + x, location.getY() + y,  location.getZ() + z)).breakNaturally(itemInHand);
+                    };
+                };
+            };
         };
     };
 

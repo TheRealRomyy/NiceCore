@@ -73,7 +73,7 @@ public class ItemGive implements CommandExecutor {
 
             return true;
         } else {
-            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector/bomb/smoke>");
+            player.sendMessage(prefix + "§cArgument invalide ! Faites : /itemgive <chunk/inv/fireball/feather/detector/bomb/jetpack/smoke>");
             return false;
         }
     };

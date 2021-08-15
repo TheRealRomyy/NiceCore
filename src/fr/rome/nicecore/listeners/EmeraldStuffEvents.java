@@ -1,10 +1,10 @@
 package fr.rome.nicecore.listeners;
 
 import fr.rome.nicecore.Main;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,17 +59,65 @@ public class EmeraldStuffEvents implements Listener {
         Location location = block.getLocation();
         ItemStack itemInHand = player.getItemInHand();
 
-        if(itemInHand != null & itemInHand.hasItemMeta() && itemInHand.getItemMeta().hasDisplayName() && itemInHand.getItemMeta().getDisplayName().equals("§aEmerald Pickaxe")) {
+        assert itemInHand != null;
+        if(itemInHand.hasItemMeta() && itemInHand.getItemMeta().hasDisplayName() && itemInHand.getItemMeta().getDisplayName().equals("§aEmerald Pickaxe")) {
 
             if(main.getSingModePlayers().contains(player)) return;
 
-            for (int x = -1; x <= 1; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    for (int z = -1 ; z <= 1; z++) {
-                        location.getWorld().getBlockAt(new Location(location.getWorld(), location.getX() + x, location.getY() + y,  location.getZ() + z)).breakNaturally(itemInHand);
-                    };
-                };
-            };
+            ArrayList<Location> locs = new ArrayList<Location>();
+
+            double x = location.getX();
+            double y = location.getY();
+            double z = location.getZ();
+
+            switch (getDirection(player, block)) {
+                case 0: // North or South
+
+                    locs.add(new Location(location.getWorld(), x, y+1, z));
+                    locs.add(new Location(location.getWorld(), x, y-1, z));
+                    locs.add(new Location(location.getWorld(), x, y, z+1));
+                    locs.add(new Location(location.getWorld(), x, y, z-1));
+                    locs.add(new Location(location.getWorld(), x, y+1, z+1));
+                    locs.add(new Location(location.getWorld(), x, y+1, z-1));
+                    locs.add(new Location(location.getWorld(), x, y-1, z+1));
+                    locs.add(new Location(location.getWorld(), x, y-1, z-1));
+
+                    break;
+                case 1: // East or West
+
+                    locs.add(new Location(location.getWorld(), x, y+1, z));
+                    locs.add(new Location(location.getWorld(), x, y-1, z));
+                    locs.add(new Location(location.getWorld(), x+1, y, z));
+                    locs.add(new Location(location.getWorld(), x-1, y, z));
+                    locs.add(new Location(location.getWorld(), x+1, y+1, z));
+                    locs.add(new Location(location.getWorld(), x-1, y+1, z));
+                    locs.add(new Location(location.getWorld(), x+1, y-1, z));
+                    locs.add(new Location(location.getWorld(), x-1, y-1, z));
+
+                    break;
+                case 2: // Down
+
+                    locs.add(new Location(location.getWorld(), x, y, z+1));
+                    locs.add(new Location(location.getWorld(), x, y, z-1));
+                    locs.add(new Location(location.getWorld(), x+1, y, z));
+                    locs.add(new Location(location.getWorld(), x-1, y, z));
+                    locs.add(new Location(location.getWorld(), x+1, y, z+1));
+                    locs.add(new Location(location.getWorld(), x-1, y, z+1));
+                    locs.add(new Location(location.getWorld(), x-1, y, z-1));
+                    locs.add(new Location(location.getWorld(), x+1, y, z-1));
+
+                    break;
+                default:
+                    break;
+            }
+
+            locs.forEach(location1 -> {
+                Block block1 = location1.getBlock();
+
+                if(!block1.getType().equals(Material.AIR) && !block1.getType().equals(Material.BEDROCK)) block1.breakNaturally(itemInHand);
+            });
+
+            if(!player.getGameMode().equals(GameMode.CREATIVE)) itemInHand.setDurability((short) (itemInHand.getDurability() + 1));
         };
     };
 
@@ -102,4 +150,24 @@ public class EmeraldStuffEvents implements Listener {
             };
         };
     };
+
+    private static Integer getDirection(Player player, Block block) {
+        if(player.getLocation().getY() > block.getLocation().getY()) return 2; // Down
+        double rot = (player.getLocation().getYaw() - 90) % 360;
+        if (rot < 0) rot += 360.0;
+
+        if (0 <= rot && rot < 67.5) {
+            return 0; // North
+        } else if (67.5 <= rot && rot < 157.5) {
+            return 1; // East
+        } else if (157.5 <= rot && rot < 247.5) {
+            return 0; // South
+        } else if (247.5 <= rot && rot < 337.5) {
+            return 1; // West
+        } else if (337.5 <= rot && rot < 360.0) {
+            return 0; // North
+        } else {
+            return 3;
+        }
+    }
 };

@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Main extends JavaPlugin {
 
     public String prefix = this.getConfig().getString("prefix").replace("&", "§") + " ";
-    public Double totalSeconds = 0.0;
+    public Long totalSeconds = 0L;
 
     public ArrayList<Player> invisiblePlayers = new ArrayList<Player>();
     public ArrayList<Player> shootersPlayers = new ArrayList<Player>();
@@ -27,11 +27,11 @@ public class Main extends JavaPlugin {
     public ArrayList<Player> singModePlayers = new ArrayList<Player>();
 
     public HashMap<Player, Integer> fireballShooterUses = new HashMap<Player, Integer>();
-    public HashMap<Player, Double> fireballShooterCooldowns = new HashMap<Player, Double>();
+    public HashMap<Player, Long> fireballShooterCooldowns = new HashMap<Player, Long>();
     public HashMap<Player, Integer> doubleJumpUses = new HashMap<Player, Integer>();
-    public HashMap<Player, Double> doubleJumpCooldowns = new HashMap<Player, Double>();
-    public HashMap<Player, Double> detectorCooldowns = new HashMap<Player, Double>();
-    public HashMap<Chest, Double> chestToExplose = new HashMap<Chest, Double>();
+    public HashMap<Player, Long> doubleJumpCooldowns = new HashMap<Player, Long>();
+    public HashMap<Player, Long> detectorCooldowns = new HashMap<Player, Long>();
+    public HashMap<Chest, Long> chestToExplose = new HashMap<Chest, Long>();
 
     @Override
     public void onEnable() {
@@ -73,11 +73,11 @@ public class Main extends JavaPlugin {
         return fireballShooterUses;
     };
 
-    public HashMap<Player, Double> getFireballShooterCooldowns() {
+    public HashMap<Player, Long> getFireballShooterCooldowns() {
         return fireballShooterCooldowns;
     };
 
-    public HashMap<Player, Double> getDoubleJumpCooldowns() {
+    public HashMap<Player, Long> getDoubleJumpCooldowns() {
         return doubleJumpCooldowns;
     };
 
@@ -85,19 +85,19 @@ public class Main extends JavaPlugin {
         return doubleJumpUses;
     };
 
-    public Double getTotalSeconds() {
+    public Long getTotalSeconds() {
         return totalSeconds;
     };
 
-    public void setTotalSeconds(Double totalSeconds) {
+    public void setTotalSeconds(Long totalSeconds) {
         this.totalSeconds = totalSeconds;
     };
 
-    public HashMap<Player, Double> getDetectorCooldowns() {
+    public HashMap<Player, Long> getDetectorCooldowns() {
         return detectorCooldowns;
     };
 
-    public HashMap<Chest, Double> getChestToExplose() {
+    public HashMap<Chest, Long> getChestToExplose() {
         return chestToExplose;
     };
 

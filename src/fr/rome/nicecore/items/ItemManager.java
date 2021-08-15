@@ -56,7 +56,7 @@ public class ItemManager {
         new BukkitRunnable() {
             public void run() {
                 try {
-                    main.setTotalSeconds(main.getTotalSeconds()+1.0);
+                    main.setTotalSeconds(main.getTotalSeconds() + 1L);
                     if(!main.getChestToExplose().isEmpty()) main.getChestToExplose().forEach((chest, aDouble) -> {
                         if(main.getTotalSeconds() >= aDouble) {
                             chest.getWorld().createExplosion(chest.getLocation(), (float) 4.0);

@@ -27,7 +27,7 @@ public class ExplosionEvents implements Listener {
         if(block.getType().equals(Material.CHEST)) {
             Chest chest = (Chest) block.getState();
 
-          if(chest.getCustomName() != null && chest.getCustomName().equals("§cBomb")) main.getChestToExplose().put(chest, main.getTotalSeconds()+10);
+          if(chest.getCustomName() != null && chest.getCustomName().equals("§cBomb")) main.getChestToExplose().put(chest, main.getTotalSeconds() + 10L);
 
         } else if(block.getType().equals(Material.OBSIDIAN)) {
             if(player.getItemInHand() != null && player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().hasDisplayName() && player.getItemInHand().getItemMeta().getDisplayName().equals("§cObsidian TNT")) {

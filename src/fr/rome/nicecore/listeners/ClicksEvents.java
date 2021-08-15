@@ -52,7 +52,7 @@ public class ClicksEvents implements Listener {
         } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§cFireball Launcher")) {
             if (inventory.containsAtLeast(coal, 1)) {
 
-                if (!main.getFireballShooterCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getFireballShooterCooldowns().get(player) >= 20.0)) {
+                if (!main.getFireballShooterCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getFireballShooterCooldowns().get(player) >= 20L)) {
                     main.getFireballShooterCooldowns().remove(player);
                     main.getFireballShooterCooldowns().put(player, main.getTotalSeconds());
 
@@ -84,14 +84,14 @@ public class ClicksEvents implements Listener {
                         e.setCancelled(true);
                     };
                 } else {
-                  player.sendMessage("§cTu es en cooldown. Il reste " + (20.0 - (main.getTotalSeconds() - main.getFireballShooterCooldowns().get(player))) + " secondes !");
+                  player.sendMessage("§cTu es en cooldown. Il reste " + (20L - (main.getTotalSeconds() - main.getFireballShooterCooldowns().get(player))) + " secondes !");
                 };
             } else {
               player.sendMessage("§cTu n'a pas de charbon dans votre inventaire !");
             };
         } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§eFeather Jump")) {
 
-            if (!main.getDoubleJumpCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player) >= 30.0)) {
+            if (!main.getDoubleJumpCooldowns().containsKey(player) || (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player) >= 30L)) {
                 main.getDoubleJumpCooldowns().remove(player);
                 main.getDoubleJumpCooldowns().put(player, main.getTotalSeconds());
 
@@ -115,7 +115,7 @@ public class ClicksEvents implements Listener {
                     e.setCancelled(true);
                 };
             } else {
-                player.sendMessage("§cTu es en cooldown. Il reste " + (30.0 - (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player))) + " secondes !");
+                player.sendMessage("§cTu es en cooldown. Il reste " + (30L - (main.getTotalSeconds() - main.getDoubleJumpCooldowns().get(player))) + " secondes !");
                 e.setCancelled(true);
             };
         } else if(item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§6Player Detector")) {

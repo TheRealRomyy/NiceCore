@@ -10,3 +10,8 @@ commands:
     permission: nicecore.items.cooldowns
     description: Skip cooldown for items
     aliases: ["cc"]
+  leaderboard:
+    description: Check emerald's leaderboard
+    aliases: ["lb"]
+  add-emerald:
+    description: An emerald to your bank

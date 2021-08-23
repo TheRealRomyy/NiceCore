@@ -1,6 +1,7 @@
 package fr.rome.nicecore;
 
 import fr.rome.nicecore.commands.CooldownBypass;
+import fr.rome.nicecore.commands.EmeraldCommands;
 import fr.rome.nicecore.commands.ItemGive;
 import fr.rome.nicecore.items.ItemManager;
 import fr.rome.nicecore.listeners.*;
@@ -55,6 +56,8 @@ public class Main extends JavaPlugin {
         // Setup commands
         getCommand("itemgive").setExecutor(new ItemGive(this));
         getCommand("clearcooldowns").setExecutor(new CooldownBypass(this));
+        getCommand("leaderboard").setExecutor(new EmeraldCommands(this));
+        getCommand("add-emerald").setExecutor(new EmeraldCommands(this));
     };
 
     public String getPrefix() {
